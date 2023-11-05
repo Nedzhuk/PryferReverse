@@ -13,3 +13,17 @@ C:\Users\ШечковаНО\source\repos\PryferReverse\obj\Debug\net6.0\refint\P
 C:\Users\ШечковаНО\source\repos\PryferReverse\obj\Debug\net6.0\PryferReverse.pdb
 C:\Users\ШечковаНО\source\repos\PryferReverse\obj\Debug\net6.0\PryferReverse.genruntimeconfig.cache
 C:\Users\ШечковаНО\source\repos\PryferReverse\obj\Debug\net6.0\ref\PryferReverse.dll
+C:\Users\bring\Source\Repos\PryferReverse\bin\Debug\net6.0\PryferReverse.exe
+C:\Users\bring\Source\Repos\PryferReverse\bin\Debug\net6.0\PryferReverse.deps.json
+C:\Users\bring\Source\Repos\PryferReverse\bin\Debug\net6.0\PryferReverse.runtimeconfig.json
+C:\Users\bring\Source\Repos\PryferReverse\bin\Debug\net6.0\PryferReverse.dll
+C:\Users\bring\Source\Repos\PryferReverse\bin\Debug\net6.0\PryferReverse.pdb
+C:\Users\bring\Source\Repos\PryferReverse\obj\Debug\net6.0\PryferReverse.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bring\Source\Repos\PryferReverse\obj\Debug\net6.0\PryferReverse.AssemblyInfoInputs.cache
+C:\Users\bring\Source\Repos\PryferReverse\obj\Debug\net6.0\PryferReverse.AssemblyInfo.cs
+C:\Users\bring\Source\Repos\PryferReverse\obj\Debug\net6.0\PryferReverse.csproj.CoreCompileInputs.cache
+C:\Users\bring\Source\Repos\PryferReverse\obj\Debug\net6.0\PryferReverse.dll
+C:\Users\bring\Source\Repos\PryferReverse\obj\Debug\net6.0\refint\PryferReverse.dll
+C:\Users\bring\Source\Repos\PryferReverse\obj\Debug\net6.0\PryferReverse.pdb
+C:\Users\bring\Source\Repos\PryferReverse\obj\Debug\net6.0\PryferReverse.genruntimeconfig.cache
+C:\Users\bring\Source\Repos\PryferReverse\obj\Debug\net6.0\ref\PryferReverse.dll

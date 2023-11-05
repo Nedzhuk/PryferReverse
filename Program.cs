@@ -1,79 +1,120 @@
-﻿namespace PryferReverse
+﻿namespace PryferReverse;
+
+internal class Program
 {
-    internal class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        int tmp = 0;
+        string edgeArray = "";
+        string resultFile = "Result.txt";
+        string sourceFile = File.ReadAllText("Pryfer.txt");
+
+        int[] vertexArray = new int[10];
+        string[] sourceArray = sourceFile.Split(";");
+
+        //Первичное заполнение массива вершин
+        for (int i = 0; i < vertexArray.Length; i++)
         {
-            string codePryfer = File.ReadAllText("Pryfer.txt");
-            string tree = "";
-            string[] masCodePryfer = codePryfer.Split(";");
-            int[] mas = new int[10];
-            
-            int tmp = 0;
+            vertexArray[i] = i + 1;
+        }
 
-            for (int i = 0; i < mas.Length; i++) mas[i] = i + 1;
-            while (codePryfer[codePryfer.Length - 1] != 0)
+        //Цикл, который выполняется при условии, что исходные данные не отсутствуют
+        while (sourceFile[^1] != 0)
+        {
+            int[] minVertexArray = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            int minVertex = int.MaxValue;
+
+            Console.Write("\nКод прюфера:");
+            for (int i = 0; i < sourceArray.Length; i++)
             {
-                int[] masmin = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-                int min = int.MaxValue;
+                Console.Write($" {sourceArray[i]}");
+            }
 
-                Console.Write("\nКод прюфера:");
-                for (int i = 0; i < masCodePryfer.Length; i++) Console.Write($" {masCodePryfer[i]}");
+            Console.Write("\nМассив вершин:");
+            for (int i = 0; i < vertexArray.Length; i++)
+            {
+                Console.Write($" {vertexArray[i]}");
+            }
 
-                Console.Write("\nМассив вершин:");
-                for (int i = 0; i < mas.Length; i++) Console.Write($" {mas[i]}");
-
-
-                for (int j = mas.Length - 1; j >= 0; j--)
+            //Нахождение минимальных вершин среди всего массива
+            for (int j = vertexArray.Length - 1; j >= 0; j--)
+            {
+                if (vertexArray[j] != 0)
                 {
-                    if(mas[j] != 0)
+                    for (int i = 0; i < sourceArray.Length; i++)
                     {
-                        for (int i = 0; i < masCodePryfer.Length; i++)
+                        if (vertexArray[j] == Convert.ToInt32(sourceArray[i]))
                         {
-                            if (mas[j] == Convert.ToInt32(masCodePryfer[i])) break;
-                            else if (i == masCodePryfer.Length - 1) masmin[j] = mas[j];
+                            break;
+                        }
+                        else if (i == sourceArray.Length - 1)
+                        {
+                            minVertexArray[j] = vertexArray[j];
                         }
                     }
                 }
-
-                for (int i = 0; i < masmin.Length; i++)
-                    if (masmin[i] != 0 && masmin[i] < min) min = masmin[i];
-
-                if (masCodePryfer[masCodePryfer.Length - 1] == "0")
-                {
-                    for (int i = 0; i < mas.Length; i++) if (mas[i] != 0) tree += $" {mas[i]}";
-                    Console.WriteLine($"\nМинимальная вершина: {min}");
-                    Console.WriteLine($"Список ребер: {tree}");
-                    break;
-                }
-                    
-                Console.WriteLine($"\nМинимальная вершина: {min}");
-
-                if (masCodePryfer[masCodePryfer.Length - 1] != "0")
-                {
-
-                    for (int i = 0; i < masCodePryfer.Length; i++)
-                        if (masCodePryfer[i] != "0")
-                        {
-                            tree += masCodePryfer[i];
-                            break;
-                        }
-                    tree += $"-{min}, ";
-                    Console.WriteLine($"Список ребер: {tree}");
-                    masCodePryfer[tmp] = "0";
-
-                    mas[min - 1] = 0;
-                }
-                else
-                {
-                    for (int i = 0; i < mas.Length; i++) if (mas[i] != 0) tree += $"{mas[i]} ";
-                    Console.WriteLine($"Список ребер: {tree}");
-                    break;
-                }
-                tmp++;
             }
-            string result = "Result.txt";
-            File.WriteAllText(result, tree);
+
+            for (int i = 0; i < minVertexArray.Length; i++)
+            {
+                if (minVertexArray[i] != 0 && minVertexArray[i] < minVertex)
+                {
+                    minVertex = minVertexArray[i];
+                }
+            }
+
+            //Вывод для последней минимальной вершины
+            if (sourceArray[^1] == "0")
+            {
+                edgeArray = WriteEdgeArray(edgeArray, vertexArray);
+                Console.WriteLine($"\nМинимальная вершина: {minVertex}");
+                break;
+            }
+
+            Console.WriteLine($"\nМинимальная вершина: {minVertex}");
+
+            if (sourceArray[^1] != "0")
+            {
+                for (int i = 0; i < sourceArray.Length; i++)
+                {
+                    if (sourceArray[i] != "0")
+                    {
+                        edgeArray += sourceArray[i];
+                        break;
+                    }
+                }
+                edgeArray += $"-{minVertex}, ";
+                Console.WriteLine($"Список ребер: {edgeArray}");
+                sourceArray[tmp] = "0";
+
+                vertexArray[minVertex - 1] = 0;
+            }
+            else
+            {
+                edgeArray = WriteEdgeArray(edgeArray, vertexArray);
+                break;
+            }
+            tmp++;
         }
+
+        File.WriteAllText(resultFile, edgeArray);
+    }
+    /// <summary>
+    /// Изменение и вывод edgeArray
+    /// </summary>
+    /// <param name="edgeArray">Массив ребер</param>
+    /// <param name="vertexArray">Массив вершин</param>
+    /// <returns>Возвращает измененный edgeArray</returns>
+    private static string WriteEdgeArray(string edgeArray, int[] vertexArray)
+    {
+        for (int i = 0; i < vertexArray.Length; i++)
+        {
+            if (vertexArray[i] != 0)
+            {
+                edgeArray += $"{vertexArray[i]} ";
+            }
+        }
+        Console.WriteLine($"\nСписок ребер: {edgeArray}");
+        return edgeArray;
     }
 }
